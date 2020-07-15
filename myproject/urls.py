@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from myapp.views import index_file
-from myapp.views import adil_file
+from myapp.views import adil_file, charlotte_file
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', index_file),
     path('adil/', adil_file),
+    path('', charlotte_file),
 
 ]

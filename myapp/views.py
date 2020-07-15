@@ -7,3 +7,6 @@ def index_file(request):
 
 def adil_file(request):
     return render(request, 'adil.html')
+
+def charlotte_file(request):
+    return render(request, 'charlotte.html')
