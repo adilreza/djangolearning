@@ -10,3 +10,12 @@ def adil_file(request):
 
 def charlotte_file(request):
     return render(request, 'charlotte.html')
+
+def newpage(request):
+    return render(request, 'newpage.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
