@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {% block meta_tags %} {% endblock %}
+  <title>{% block title %} dajngo learning {% endblock %}</title>
+
+  {% block css %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/7142f799eb.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.tiny.cloud/1/ioz6pwe9a7a8wq42gzqpear2gjrdfv0geqhnjjjj1dnv10ct/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
+
+
+  {% endblock %}
+
+  {% block custom_css %}
+  {% endblock %}
+</head>
+<body>
+
+  {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Charlotte's Django Learning</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home  </a>
+          </li>
+            <li class="nav-item active">
+            <a class="nav-link" href="/contact">Contact </a>
+          </li>
+            <li class="nav-item active">
+            <a class="nav-link" href="/about">About us</a>
+          </li>
+            </li>
+            <li class="nav-item active">
+            <a class="nav-link" href="/post">Myform</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+  <div class="container mt-4">
+  {% block container %}
+  {% endblock %}
+  </div>
+
+  {% block js %}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7142f799eb.js" crossorigin="anonymous"></script>
+
+  {% endblock %}
+
+  {% block custom_js %}
+  {% endblock %}
+</body>
+</html>
