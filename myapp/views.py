@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+# import model
+from .models import  Post
+
 # Create your views here.
 
 def index_file(request):
@@ -19,3 +22,15 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+def my_form(request):
+    if request.method=="GET":
+        return render(request, 'firstform.html')
+    if request.method == "POST":
+        title = request.POST['title']
+        description = request.POST['description']
+
+        sql = Post(title=title, description=description)
+
+        sql.save()
+        return render(request, 'firstform.html')

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from myapp.views import index_file
 from myapp.views import adil_file, charlotte_file, newpage
-from myapp.views import about, contact
+from myapp.views import about, contact, my_form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('newpage/', newpage),
     path('about/', about),
     path('contact/', contact),
+    path('post/', my_form),
     path('', charlotte_file),
 
 ]
