@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import  JsonResponse
+from django.http import  JsonResponse, HttpResponse
 
 # import model
 from .models import  Post, Mydata
@@ -91,5 +91,11 @@ def update_post(request):
         }
         return render(request, 'manage_data.html', context=makedictionary)
 
+
+def response_test(request):
+    return HttpResponse("<h1>Hello htppresponse</h1>")
+
+def custome_view(request):
+    return HttpResponse("<h1>This is from custom</h1>")
 
 
