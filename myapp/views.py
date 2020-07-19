@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # import model
-from .models import  Post
+from .models import  Post, Mydata
 
 # Create your views here.
 
@@ -34,3 +34,18 @@ def my_form(request):
 
         sql.save()
         return render(request, 'firstform.html')
+
+
+def my_form2(request):
+    if request.method=="GET":
+        return render(request, 'secondform.html')
+    if request.method == "POST":
+        integer = request.POST['Integer']
+        print(integer)
+        text= request.POST['Text']
+        character= request.POST['Character']
+
+        sql = Mydata(Integer=integer, Text=text, Character=character)
+
+        sql.save()
+        return render(request, 'secondform.html')

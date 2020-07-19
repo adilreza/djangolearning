@@ -21,3 +21,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Mydata(models.Model):
+    Integer = models.IntegerField()
+    Text = models.TextField()
+    Character = models.CharField(max_length=200)
+    def __str__(self):
+        return self.Character
