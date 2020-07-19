@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import  JsonResponse, HttpResponse
 
 # import model
 from .models import  Post, Mydata
@@ -49,3 +50,52 @@ def my_form2(request):
 
         sql.save()
         return render(request, 'secondform.html')
+
+def manage_data(request):
+    if request.method=="GET":
+        mydata = Post.objects.all()
+        makedictionary = {
+            "all_data":mydata
+        }
+        return render(request, 'manage_data.html', context=makedictionary)
+
+def delete_post(request, id):
+    if request.method == "GET":
+        Post.objects.filter(id=id).delete()
+        mydata = Post.objects.all()
+        makedictionary = {
+            "all_data": mydata
+        }
+        return render(request, 'manage_data.html', context=makedictionary)
+        #return JsonResponse({"id":id,"message":"Yes your id is received"})
+
+def edit_post(request, id):
+    if request.method == "GET":
+        mydata = Post.objects.filter(id=id)
+        makedictionary = {
+            "single_data": mydata
+        }
+        return render(request, "edit_post.html", context=makedictionary)
+
+def update_post(request):
+    if request.method == "POST":
+        id = request.POST['id'];
+        title = request.POST['title']
+        description = request.POST['description']
+
+        Post.objects.filter(id=id).update(title=title, description=description)
+
+        mydata = Post.objects.all()
+        makedictionary = {
+            "all_data": mydata
+        }
+        return render(request, 'manage_data.html', context=makedictionary)
+
+
+def response_test(request):
+    return HttpResponse("<h1>Hello htppresponse</h1>")
+
+def custome_view(request):
+    return HttpResponse("<h1>This is from custom</h1>")
+
+

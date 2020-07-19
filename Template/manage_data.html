@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Managing data of post  {% endblock %}
+{% block container %}
+
+
+<div class="container">
+  <h2>Post data</h2>
+  <p>Here will be the operation for editing and deleting</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>post Title</th>
+        <th>post description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for single_data in all_data %}
+      <tr>
+        <td>{{ single_data.id }}</td>
+        <td>{{ single_data.title }}</td>
+        <td>{{ single_data.description }}</td>
+        <td><button class="btn btn-danger"><a style="color:white;" href="/delete_post/{{single_data.id}}">Delete</a></button>
+            <button class="btn btn-warning"><a style="color:white;" href="/edit_post/{{single_data.id}}">Edit</a></button>
+        </td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+
+
+{% endblock %}
