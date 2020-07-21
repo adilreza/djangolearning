@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import  JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 # import model
 from .models import  Post, Mydata
 
@@ -39,20 +39,21 @@ def my_form(request):
         return render(request, 'firstform.html')
 
 
-@login_required
+
 def my_form2(request):
-    if request.method=="GET":
-        return render(request, 'secondform.html')
-    if request.method == "POST":
-        integer = request.POST['Integer']
-        print(integer)
-        text= request.POST['Text']
-        character= request.POST['Character']
+    if request.user.is_authenticated:
+        if request.method=="GET":
+            return render(request, 'secondform.html')
+        if request.method == "POST":
+            integer = request.POST['Integer']
+            print(integer)
+            text= request.POST['Text']
+            character= request.POST['Character']
 
-        sql = Mydata(Integer=integer, Text=text, Character=character)
+            sql = Mydata(Integer=integer, Text=text, Character=character)
 
-        sql.save()
-        return render(request, 'secondform.html')
+            sql.save()
+            return render(request, 'secondform.html')
 
 def manage_data(request):
     if request.method=="GET":
@@ -165,7 +166,12 @@ def make_login(request):
         user = authenticate(username=username,password=password)
 
         if user is not None:
+            login(request,user)
             return JsonResponse({"message":"Yooo!! yes you are our valid user, Welcome"})
         else:
             return JsonResponse({"message":"Noo!! you are not our valid user"})
 
+
+def logout_here(request):
+    logout(request)
+    return JsonResponse({"message":"You have been  successfully log out"})
