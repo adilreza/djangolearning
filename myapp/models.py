@@ -28,3 +28,5 @@ class Mydata(models.Model):
     Character = models.CharField(max_length=200)
     def __str__(self):
         return self.Character
+
+
