@@ -79,7 +79,7 @@ def edit_post(request, id):
 
 def update_post(request):
     if request.method == "POST":
-        id = request.POST['id'];
+        id = request.POST['id']
         title = request.POST['title']
         description = request.POST['description']
 
@@ -91,11 +91,50 @@ def update_post(request):
         }
         return render(request, 'manage_data.html', context=makedictionary)
 
+def manage_data2(request):
+    if request.method=="GET":
+        mydata = Mydata.objects.all()
+        makedictionary = {
+            "all_data":mydata
+        }
+        return render(request, 'manage_data2.html', context=makedictionary)
+
+def delete_post2(request, id):
+    if request.method == "GET":
+        Mydata.objects.filter(id=id).delete()
+        mydata = Mydata.objects.all()
+        makedictionary = {
+            "all_data": mydata
+        }
+        return render(request, 'manage_data2.html', context=makedictionary)
+        #return JsonResponse({"id":id,"message":"Yes your id is received"})
+
+def edit_post2(request, id):
+    if request.method == "GET":
+        mydata = Mydata.objects.filter(id=id)
+        makedictionary = {
+            "single_data": mydata
+        }
+        return render(request, "edit_post2.html", context=makedictionary)
+
+def update_post2(request):
+    if request.method == "POST":
+        id = request.POST['id']
+        Integer = request.POST['Integer']
+        Text = request.POST['Text']
+        Character = request.POST['Character']
+
+        Mydata.objects.filter(id=id).update(Integer=Integer, Text=Text, Character=Character)
+
+        mydata = Mydata.objects.all()
+        makedictionary = {
+            "all_data": mydata
+        }
+        return render(request, 'manage_data2.html', context=makedictionary)
+
 
 def response_test(request):
     return HttpResponse("<h1>Hello htppresponse</h1>")
 
 def custome_view(request):
     return HttpResponse("<h1>This is from custom</h1>")
-
-
