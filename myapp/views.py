@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import  JsonResponse, HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 # import model
 from .models import  Post, Mydata
 
@@ -37,6 +39,7 @@ def my_form(request):
         return render(request, 'firstform.html')
 
 
+@login_required
 def my_form2(request):
     if request.method=="GET":
         return render(request, 'secondform.html')
@@ -138,3 +141,31 @@ def response_test(request):
 
 def custome_view(request):
     return HttpResponse("<h1>This is from custom</h1>")
+
+def make_user(request):
+    if request.method=="GET":
+        return render(request, 'signup.html')
+    if request.method=="POST":
+
+        email = request.POST['email']
+        password = request.POST['password']
+        username = request.POST['username']
+        usr = User.objects.create_user(username=username, email=email, password=password)
+        usr.save()
+        return JsonResponse({"message":"Successfully create a new user"})
+
+
+def make_login(request):
+    if request.method == "GET":
+        return render(request, 'login.html')
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username,password=password)
+
+        if user is not None:
+            return JsonResponse({"message":"Yooo!! yes you are our valid user, Welcome"})
+        else:
+            return JsonResponse({"message":"Noo!! you are not our valid user"})
+
