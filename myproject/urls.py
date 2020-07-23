@@ -1,26 +1,14 @@
-"""myproject URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
+from django.conf import  settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from myapp.views import index_file
 from myapp.views import adil_file, charlotte_file, newpage
 from myapp.views import (about, contact, my_form, my_form2, manage_data, delete_post, edit_post, update_post,
 manage_data2, delete_post2, edit_post2, update_post2
 )
-from myapp.views import response_test
+from myapp.views import response_test, blogpost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,6 +31,9 @@ urlpatterns = [
     path('update_post2/', update_post2),
 
     path('response_test/', response_test),
+    path('blogpost/', blogpost),
+
     path('custom/', include('myapp.our_custom_urls')),
 
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

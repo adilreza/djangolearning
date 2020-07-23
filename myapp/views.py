@@ -4,8 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 # import model
-from .models import  Post, Mydata
-
+from .models import  Post, Mydata, BlogPost
 # Create your views here.
 
 def index_file(request):
@@ -167,6 +166,7 @@ def make_login(request):
 
         if user is not None:
             login(request,user)
+            request.session['my_auth_user']=username
             return JsonResponse({"message":"Yooo!! yes you are our valid user, Welcome"})
         else:
             return JsonResponse({"message":"Noo!! you are not our valid user"})
@@ -174,4 +174,17 @@ def make_login(request):
 
 def logout_here(request):
     logout(request)
+    request.session['my_auth_user'] = ''
     return JsonResponse({"message":"You have been  successfully log out"})
+
+def blogpost(request):
+    if request.method == "GET":
+        return render(request, 'blogpost.html')
+    if request.method == "POST":
+        user = User.objects.get(username=request.session['my_auth_user'])
+        blog_title = request.POST['blog_title']
+        blog_description = request.POST['blog_description']
+        print(blog_description)
+        sql = BlogPost(blog_title=blog_title, blog_description=blog_description, written_by=user)
+        sql.save()
+        return render(request, 'blogpost.html')
