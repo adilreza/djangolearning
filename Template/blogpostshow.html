@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Contact page {% endblock %}
+{% block container %}
+
+<h1>Blog details here </h1>
+<hr>
+
+{% for blog in single_data%}
+    <h4>{{blog.blog_title}}</h4>
+    <br>
+    <p> {{ blog.blog_description|safe }}</p>
+
+{% endfor %}
+{% endblock %}

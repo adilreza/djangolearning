@@ -181,10 +181,23 @@ def blogpost(request):
     if request.method == "GET":
         return render(request, 'blogpost.html')
     if request.method == "POST":
-        user = User.objects.get(username=request.session['my_auth_user'])
-        blog_title = request.POST['blog_title']
-        blog_description = request.POST['blog_description']
-        print(blog_description)
-        sql = BlogPost(blog_title=blog_title, blog_description=blog_description, written_by=user)
-        sql.save()
-        return render(request, 'blogpost.html')
+        usr = request.session['my_auth_user']
+        if usr is None:
+            return JsonResponse({"message":"Hei, you need to log in at first fo writting blog"})
+        else:
+            user = User.objects.get(username=request.session['my_auth_user'])
+            blog_title = request.POST['blog_title']
+            blog_description = request.POST['blog_description']
+            print(blog_description)
+            sql = BlogPost(blog_title=blog_title, blog_description=blog_description, written_by=user)
+            sql.save()
+            return render(request, 'blogpost.html')
+
+
+def blog_details(request, blog_id):
+    my_blog_details = BlogPost.objects.filter(id=blog_id)
+    makedictionary = {
+        "single_data": my_blog_details
+    }
+    return render(request, "blogpostshow.html", context=makedictionary)
+
