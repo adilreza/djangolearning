@@ -8,7 +8,7 @@ from myapp.views import adil_file, charlotte_file, newpage
 from myapp.views import (about, contact, my_form, my_form2, manage_data, delete_post, edit_post, update_post,
 manage_data2, delete_post2, edit_post2, update_post2
 )
-from myapp.views import response_test, blogpost
+from myapp.views import response_test, blogpost, blog_details
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('response_test/', response_test),
     path('blogpost/', blogpost),
+    path('blog_details/<int:blog_id>', blog_details),
 
     path('custom/', include('myapp.our_custom_urls')),
 
