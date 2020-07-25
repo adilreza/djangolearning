@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} article details {% endblock %}
+{% block container %}
+
+{% for article in single_data%}
+    <h4>{{article.article_title}}</h4>
+    <p class="text-muted">{{article.created_at}}</p>
+    <p class="text-muted">by: {{article.written_by}}</p>
+    <br>
+    <p> {{ article.article_content }}</p>
+
+{% endfor %}
+{% endblock %}

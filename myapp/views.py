@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 # import model
-from .models import  Post, Mydata, BlogPost
+from .models import  Post, Mydata, BlogPost, ArticlePost
 # Create your views here.
 
 def index_file(request):
@@ -201,3 +201,34 @@ def blog_details(request, blog_id):
     }
     return render(request, "blogpostshow.html", context=makedictionary)
 
+def articlepost(request):
+    if request.method == "GET":
+        return render(request, 'post_article.html')
+    if request.method == "POST":
+        usr = request.session['my_auth_user']
+        if usr is None:
+            return JsonResponse({"message":"Hei, you need to log in at first fo writting blog"})
+        else:
+            user = User.objects.get(username=request.session['my_auth_user'])
+            article_title = request.POST['article_title']
+            article_image = request.FILE['article_image']
+            article_description = request.POST['article_content']
+            print(article_description)
+            sql = ArticlePost(article_title=article_title, article_image = article_image, article_content=article_description, written_by=user)
+            sql.save()
+            return render(request, 'post_article.html')
+
+def all_articles(request):
+    if request.method == "GET":
+        articles = ArticlePost.objects.all()
+        makedictionary = {
+            "all_articles": articles
+        }
+        return render(request, 'all_articles.html', context=makedictionary)
+
+def article_details(request, article_id):
+    my_article_details = ArticlePost.objects.filter(id=article_id)
+    makedictionary = {
+        "single_data": my_article_details
+    }
+    return render(request, "articleshow.html", context=makedictionary)

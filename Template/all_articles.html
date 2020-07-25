@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} Articles  {% endblock %}
+{% block container %}
+
+<h1>Articles</h1>
+
+{% for single_article in all_articles %}
+    <!--<img src="{{single_article.article_image}}">-->
+
+    <div class="card" style="width:400px">
+        <div class="card-body">
+            <div class="card-title"><h2>{{single_article.article_title}}</h2></div>
+            <p class="text-muted">{{single_article.created_at}}</p>
+            <p class="text-muted">by: {{single_article.written_by}}</p>
+            <div class="card-text">{{single_article.article_content}}</div>
+            <a class="btn btn-primary" href = "http://localhost:8000/article_details/{{ single_article.id }}" style="margin: 1rem; margin-left: 0rem; color: white;">see more</a>
+        </div>
+    </div>
+
+{% endfor %}
+{% endblock %}
