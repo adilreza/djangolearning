@@ -180,18 +180,37 @@ def logout_here(request):
 def blogpost(request):
     if request.method == "GET":
         return render(request, 'blogpost.html')
+
     if request.method == "POST":
-        usr = request.session['my_auth_user']
-        if usr is None:
-            return JsonResponse({"message":"Hei, you need to log in at first fo writting blog"})
-        else:
+        usr = request.session.get('my_auth_user')
+
+        if usr:
             user = User.objects.get(username=request.session['my_auth_user'])
             blog_title = request.POST['blog_title']
             blog_description = request.POST['blog_description']
-            print(blog_description)
-            sql = BlogPost(blog_title=blog_title, blog_description=blog_description, written_by=user)
+            blog_image = request.FILES['blog_image']
+            # print(blog_description)
+            sql = BlogPost(blog_title=blog_title, blog_image=blog_image, blog_description=blog_description,
+                           written_by=user)
             sql.save()
-            return render(request, 'blogpost.html')
+            my_message = {
+                "status": "ok",
+                "message": "successfuly uploaded "
+            }
+            mymessage_error = {
+                "status": "no",
+                "message": "something went wrong, try again"
+            }
+
+            return render(request, 'blogpost.html', context=my_message)
+
+        else:
+            mymessage_error = {
+                "user_blank": "yes"
+            }
+
+            return render(request, 'blogpost.html', context=mymessage_error)
+
 
 
 def blog_details(request, blog_id):
@@ -201,3 +220,7 @@ def blog_details(request, blog_id):
     }
     return render(request, "blogpostshow.html", context=makedictionary)
 
+
+def image(request):
+    if request.method == "GET":
+        return render(request, 'image.html')

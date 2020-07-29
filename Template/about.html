@@ -5,4 +5,29 @@
 
 <h1>this is about us page </h1>
 
+<button onclick="simple_function()" class="btn btn-primary btn-sm"> simple button</button>
+<br/>
+<br/>
+<br/>
+<button onclick="sweetalert_function()" class="btn btn-primary btn-lg"> sweetAlert Button</button>
+
+<script>
+
+    function simple_function()
+    {
+        alert("Hei I am clicked. simple function")
+    }
+
+    function sweetalert_function()
+    {
+        Swal.fire(
+          'Hello Charlotte ! sorry ',
+          'You are about to learn some important topics ',
+          'error'
+        )
+    }
+
+
+</script>
+
 {% endblock %}

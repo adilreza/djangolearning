@@ -8,6 +8,8 @@
 
 {% for blog in single_data%}
     <h4>{{blog.blog_title}}</h4>
+    <hr>
+    <img style="height:300px; widht:500px;" src="{{blog.blog_image.url}}" alt="Blog Image"/>
     <br>
     <p> {{ blog.blog_description|safe }}</p>
 
