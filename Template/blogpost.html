@@ -6,13 +6,13 @@
 <div class="container">
   <hr/>
   <h2>Simple Storing blog post for rich Text</h2>
-  <form action="/blogpost/" method="post">
+  <form action="/blogpost/" method="post" enctype="multipart/form-data">
 
       {% csrf_token %}
 
     <div class="form-group">
-      <label >Blog Title</label>
-      <input type="text" class="form-control"  placeholder="Enter your title " name="blog_title">
+      <label for="blog_title" >Blog Title</label>
+      <input id="blog_title" type="text" class="form-control"  placeholder="Enter your title " name="blog_title">
     </div>
     <div class="form-group">
       <label > Blog Description</label>
@@ -21,9 +21,47 @@
       </textarea>
     </div>
 
+    <div class="form-group">
+      <label> Image file</label>
+      <input type="file" class="form-control" name="blog_image" />
+    </div>
+    <br>
+
     <button type="submit" class="btn btn-primary btn-lg">Store It</button>
   </form>
+
+
+
+
+
+
+
 </div>
+
+{% if user_blank %}
+  <script>
+    Swal.fire(
+          'Opps! Unauthorized',
+          'You need to log in first to insert post',
+          'error'
+        )
+
+  </script>
+{% endif %}
+
+{%if status %}
+ <script>
+
+       Swal.fire(
+          'Hei! Congratulation ',
+          'Your post is uploaded successfully, thank you ',
+          'success'
+        )
+
+ </script>
+
+{%endif%}
+
 
 
     <script>
@@ -35,6 +73,10 @@
       branding: false
 
     });
+
+
+
+
   </script>
 
 {% endblock %}
