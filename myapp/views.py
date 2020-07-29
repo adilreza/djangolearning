@@ -201,3 +201,7 @@ def blog_details(request, blog_id):
     }
     return render(request, "blogpostshow.html", context=makedictionary)
 
+
+def image(request):
+    if request.method == "GET":
+        return render(request, 'image.html')

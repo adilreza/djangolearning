@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block title %}Imag randering page  {% endblock %}
+
+
+{% block container %}
+
+<h1>This is Image testing </h1>
+<hr>
+
+<img src="{% static 'image/image-test.jpeg' %}" alt="Image is not found" />
+<hr/>
+
+<h2>Javasript</h2>
+<hr/>
+<label>Enter some text here </label>
+
+<input id="my_value" class="form-control"  >
+<br/>
+
+<input type="submit" class="btn btn-info" onmouseover="myFunction()"  value="Click here ">
+<br/>
+<p id="show_value">
+
+</p>
+
+
+
+{% endblock %}
