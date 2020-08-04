@@ -44,5 +44,12 @@ class BlogPost(models.Model):
         return self.blog_title
 
 
+class MyAjaxTest(models.Model):
+    name = models.CharField(max_length=120)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
 
 
