@@ -3,9 +3,11 @@ from django.http import  JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 # import model
-from .models import  Post, Mydata, BlogPost
+from .models import  Post, Mydata, BlogPost, MyAjaxTest
 # Create your views here.
+import json
 
 def index_file(request):
     return render(request, 'index.html')
@@ -224,3 +226,24 @@ def blog_details(request, blog_id):
 def image(request):
     if request.method == "GET":
         return render(request, 'image.html')
+
+@csrf_exempt
+def ajax_request(request):
+    if request.method == "GET":
+        return render(request, 'ajax_page.html')
+
+    if request.method == "POST":
+        # json_data = json.loads(request.body)
+        #         # print(json_data["name"])
+        #         # print(json_data["email"])
+
+        name = request.POST['name']
+        email = request.POST['email']
+        print(name)
+        print(email)
+
+        sql = MyAjaxTest(name=name, email=email)
+        sql.save()
+
+        return JsonResponse({"success":"data received",})
+

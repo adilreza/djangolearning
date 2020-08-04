@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %} Form Page {% endblock %}
+{% block container %}
+
+<div class="container">
+  <button class="btn btn-info"><a style="color:white;" href="/manage_data">Manage the data</a></button>
+  <hr/>
+  <h2>Simple ajax test data form</h2>
+  <form id="my_ajax_form" >
+
+      {% csrf_token %}
+
+    <div class="form-group">
+      <label >Name</label>
+      <input type="text" class="form-control" id="form_name"  placeholder="name here" >
+    </div>
+    <div class="form-group">
+      <label >Email</label>
+      <input type="email" id="form_email" class="form-control"  placeholder="email here" >
+    </div>
+
+    <button type="submit" id="submit_ajax" class="btn btn-primary btn-lg">Store without loading </button>
+  </form>
+</div>
+
+
+<script>
+
+    $(document).ready(function(){
+        $("#my_ajax_form").submit(function(e){
+          e.preventDefault();
+           var name = $("#form_name").val()
+           var email = $("#form_email").val()
+           data_json = {
+                  "name": name,
+                  "email":email
+           }
+
+           $.ajax({
+              type: "POST",
+              url: "/request/ajax",
+              data: data_json,
+              dataType:"json",
+
+              success: function(data){
+                  if(data.success)
+                  {
+                    clear_it()
+                  }
+              }
+
+           });
+
+        });
+
+    });
+
+
+    function clear_it()
+    {
+       $("#form_name").val("")
+       $("#form_email").val("")
+    }
+
+</script>
+
+
+
+{% endblock %}
