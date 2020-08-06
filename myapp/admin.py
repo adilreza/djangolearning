@@ -4,7 +4,7 @@ from django.contrib import admin
 # imported all models
 
 from .models import MyFirstTable
-from .models import Post, Mydata, BlogPost, MyAjaxTest
+from .models import Post, Mydata, BlogPost, MyAjaxTest, CharlotteAjaxTable
 # Register your models here.
 
 
@@ -13,3 +13,4 @@ admin.site.register(Post)
 admin.site.register(Mydata)
 admin.site.register(BlogPost)
 admin.site.register(MyAjaxTest)
+admin.site.register(CharlotteAjaxTable)

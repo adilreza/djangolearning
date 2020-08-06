@@ -8,7 +8,7 @@ from myapp.views import adil_file, charlotte_file, newpage
 from myapp.views import (about, contact, my_form, my_form2, manage_data, delete_post, edit_post, update_post,
 manage_data2, delete_post2, edit_post2, update_post2
 )
-from myapp.views import response_test, blogpost, blog_details, image,ajax_request
+from myapp.views import response_test, blogpost, blog_details, image,ajax_request, charlotte_ajax
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,5 +38,6 @@ urlpatterns = [
 
     path('custom/', include('myapp.our_custom_urls')),
 
+    path('charlotteajax/', charlotte_ajax)
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

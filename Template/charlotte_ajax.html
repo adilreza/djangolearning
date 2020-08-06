@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} Charlotte Ajax {% endblock %}
+{% block container %}
+
+<div class = "container">
+    <form id = "charlotte_ajax_form">
+        <div class="form-group">
+            <label>name</label>
+            <input type="text" class="form-control" id="form_name"  placeholder="Ex. Jane Doe">
+        </div>
+
+        <div class="form-group">
+            <label>Favorite Food</label>
+            <input type="text" class="form-control" id="form_food"  placeholder="Ex. Artichoke">
+        </div>
+
+        <div class="form-group">
+            <label>Favorite Color</label>
+            <input type="text" class="form-control" id="form_color"  placeholder="Ex. Green">
+        </div>
+
+        <button type="submit" id="submit_ajax" class="btn btn-primary btn-lg">Store without loading </button>
+    </form>
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $("#charlotte_ajax_form").submit(function(e){
+          e.preventDefault();
+           var name = $("#form_name").val()
+           var food = $("#form_food").val()
+           var color = $("#form_color").val()
+
+           data_json = {
+                  "name": name,
+                  "food":food,
+                  "color":color,
+           }
+
+           $.ajax({
+              type: "POST",
+              url: "/charlotteajax/",
+              data: data_json,
+              dataType:"json",
+
+              success: function(data){
+                  if(data.success)
+                  {
+                    clear_it()
+                  }
+              }
+
+           });
+
+        });
+
+    });
+
+
+    function clear_it()
+    {
+       $("#form_name").val("")
+       $("#form_food").val("")
+       $("#form_color").val("")
+    }
+</script>
+
+{% endblock %}
