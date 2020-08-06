@@ -14,3 +14,8 @@ admin.site.register(Mydata)
 admin.site.register(BlogPost)
 admin.site.register(MyAjaxTest)
 admin.site.register(CharlotteAjaxTable)
+
+
+admin.site.site_header = "Django Learning"
+admin.site.site_title = "Welcome to admin dashboard"
+admin.site.index_title = "Learning"

@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 def upload_path(instance, filename):
     return '/'.join(['blog_image', str(instance.blog_image), filename])
+
 
 class MyFirstTable(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)

@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 # import model
 from .models import  Post, Mydata, BlogPost, MyAjaxTest, CharlotteAjaxTable
+from django.views import View
 # Create your views here.
 import json
 
@@ -262,3 +263,21 @@ def charlotte_ajax(request):
         sql.save()
 
         return JsonResponse({"success":"data received",})
+
+
+
+class FirstClassBasedView(View):
+    def get(self, request):
+        return JsonResponse({"message":"I am from get method"})
+    @csrf_exempt
+    def post(self, request):
+        return JsonResponse({"message":"This is from post method"})
+    def put(self, request):
+        return JsonResponse({"message":"I am from put"})
+
+    def delete(self, request):
+        return JsonResponse({"message":"I am from delete"})
+
+    def patch(self, requst):
+        return JsonResponse({"message": "I am from patch"})
+
