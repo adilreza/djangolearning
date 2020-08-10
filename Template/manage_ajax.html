@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %} Managing data of post  {% endblock %}
+{% block container %}
+
+
+<div class="container">
+  <h2>Post data</h2>
+  <p>Here will be the operation for editing and deleting</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Favourite Food</th>
+        <th>Favourite Color</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for single_data in all_data %}
+      <tr>
+        <td><p id="Id">{{ single_data.id }}</p><input type="hidden" id="pk" value="{{ single_data.id }}"></td>
+        <td>{{ single_data.name }}</td>
+        <td>{{ single_data.food }}</td>
+        <td>{{ single_data.color }}</td>
+        <td>
+          <button id="delete_btn" class="btn btn-danger delete"><a style="color:white;">Delete</a></button>
+          <button class="btn btn-warning"><a style="color:white;" href="/edit_post/{{single_data.id}}">Edit</a></button>
+        </td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#delete_btn").click(function(e){
+      e.preventDefault();
+        var id = $("#pk").val();
+        var path = "/delete_ajax/"+String(id);
+        data_json = {
+              "id": id,
+        }
+
+        $.ajax({
+          type: "GET",
+          url: "/delete_ajax/"+String(id),
+          data: data_json,
+          dataType:"json",
+
+          success: function(data){
+              if(data)
+              {
+                console.log("successfully deleted")
+              }
+          }
+
+        });
+    });
+  });
+</script>
+
+{% endblock %}
