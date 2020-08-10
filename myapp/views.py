@@ -264,6 +264,25 @@ def charlotte_ajax(request):
 
         return JsonResponse({"success":"data received",})
 
+@csrf_exempt
+def manage_ajax(request):
+    if request.method=="GET":
+        mydata = CharlotteAjaxTable.objects.all()
+        makedictionary = {
+            "all_data":mydata
+        }
+        return render(request, 'manage_ajax.html', context=makedictionary)
+
+@csrf_exempt
+def delete_ajax(request, id):
+    if request.method == "GET":
+        CharlotteAjaxTable.objects.filter(id=id).delete()
+        mydata = CharlotteAjaxTable.objects.all()
+        makedictionary = {
+            "all_data": mydata,
+            "success": "ok",
+        }
+        return render(request, 'manage_ajax.html', context=makedictionary)
 
 
 class FirstClassBasedView(View):

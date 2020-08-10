@@ -9,7 +9,7 @@ from myapp.views import (about, contact, my_form, my_form2, manage_data, delete_
 manage_data2, delete_post2, edit_post2, update_post2
 )
 from myapp.views import response_test, blogpost, blog_details, image,ajax_request, charlotte_ajax
-from myapp.views import FirstClassBasedView
+from myapp.views import FirstClassBasedView, manage_ajax, delete_ajax
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +40,10 @@ urlpatterns = [
     path('custom/', include('myapp.our_custom_urls')),
 
     path('charlotteajax/', charlotte_ajax),
-    path('class_based/', FirstClassBasedView.as_view())
+    path('class_based/', FirstClassBasedView.as_view()),
+    path('manageajax/', manage_ajax),
+
+    path('delete_ajax/<int:id>', delete_ajax),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
