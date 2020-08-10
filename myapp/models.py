@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
+
 
 # Create your models here.
 
@@ -60,3 +62,12 @@ class CharlotteAjaxTable(models.Model):
     color = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+
+
+class AdvancedDataType(models.Model):
+    name = models.CharField(max_length=30)
+    json_data = JSONField()
+
+    def __str__(self):
+        return self.name
+
