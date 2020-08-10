@@ -5,6 +5,7 @@ from django.contrib import admin
 
 from .models import MyFirstTable
 from .models import Post, Mydata, BlogPost, MyAjaxTest, CharlotteAjaxTable
+from .models import AdvancedDataType
 # Register your models here.
 
 
@@ -14,6 +15,7 @@ admin.site.register(Mydata)
 admin.site.register(BlogPost)
 admin.site.register(MyAjaxTest)
 admin.site.register(CharlotteAjaxTable)
+admin.site.register(AdvancedDataType)
 
 
 admin.site.site_header = "Django Learning"

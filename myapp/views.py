@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 # import model
 from .models import  Post, Mydata, BlogPost, MyAjaxTest, CharlotteAjaxTable
+from .models import AdvancedDataType
 from django.views import View
 # Create your views here.
 import json
@@ -300,3 +301,14 @@ class FirstClassBasedView(View):
     def patch(self, requst):
         return JsonResponse({"message": "I am from patch"})
 
+@csrf_exempt
+def advanced_type(request):
+    if request.method == "GET":
+        return JsonResponse({"message":"I am from the advanced type"})
+    if request.method == "POST":
+        clean_data = json.loads(request.body)
+
+        print(clean_data)
+        sql = AdvancedDataType(name=clean_data["name"], json_data = clean_data["json_type"])
+        sql.save()
+        return JsonResponse({"message":"I am from post"})

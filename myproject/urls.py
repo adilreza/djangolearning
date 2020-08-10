@@ -10,6 +10,7 @@ manage_data2, delete_post2, edit_post2, update_post2
 )
 from myapp.views import response_test, blogpost, blog_details, image,ajax_request, charlotte_ajax
 from myapp.views import FirstClassBasedView, manage_ajax, delete_ajax
+from myapp.views import advanced_type
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,6 +45,7 @@ urlpatterns = [
     path('manageajax/', manage_ajax),
 
     path('delete_ajax/<int:id>', delete_ajax),
+    path('advanced/', advanced_type),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
