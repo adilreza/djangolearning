@@ -12,7 +12,14 @@ from myapp.views import response_test, blogpost, blog_details, image,ajax_reques
 from myapp.views import FirstClassBasedView, manage_ajax, delete_ajax
 from myapp.views import advanced_type
 
+
+from todo.views import todo
+
 urlpatterns = [
+    
+    path('todo/', todo),
+
+
     path('admin/', admin.site.urls),
     path('index/', index_file),
     path('adil/', adil_file),
