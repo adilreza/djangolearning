@@ -1,3 +1,6 @@
 from django.db import models
 
 # Create your models here.
+
+class todo_list(models.Model):
+    task = models.CharField(max_length=50)
