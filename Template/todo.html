@@ -9,11 +9,62 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <title>To Do</title>
 </head>
 <body>
     <div class="container">
         <h1>To Do list</h1>
+        {% for single_data in all_data %}
+            <p>{{ single_data.task }} <a href="/deletetask/{{ single_data.id }}" class="btn btn-danger">Delete</a></p>
+        {% endfor %}
+        <form action="" id="task_form">
+            <div class="form-group">
+                <label>New task</label>
+                <input type="text" id="form_task" class="form-control" placeholder="new task" >
+            </div>
+            <button type="submit" id="" class="btn btn-primary btn-lg">Submit</button>
+        </form>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#task_form").submit(function(e){
+              e.preventDefault();
+               var task = $("#form_task").val()
+               data_json = {
+                      "task": task,
+               }
+    
+               $.ajax({
+                  type: "POST",
+                  url: "/todo/",
+                  data: data_json,
+                  dataType:"json",
+    
+                  success: function(data){
+                      if(data.success)
+                      {
+                        clear_it()
+                      }
+                  }
+    
+               });
+    
+            });
+    
+        });
+    
+    
+        function clear_it()
+        {
+           $("#form_task").val("")
+        }
+    
+    </script>
 </body>
 </html>
