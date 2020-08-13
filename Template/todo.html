@@ -19,9 +19,12 @@
 <body>
     <div class="container">
         <h1>To Do list</h1>
-        {% for single_data in all_data %}
-            <p>{{ single_data.task }} <a href="/deletetask/{{ single_data.id }}" class="btn btn-danger">Delete</a></p>
-        {% endfor %}
+
+       <div id ="our_data">
+
+       </div>
+
+
         <form action="" id="task_form">
             <div class="form-group">
                 <label>New task</label>
@@ -64,6 +67,27 @@
         {
            $("#form_task").val("")
         }
+
+        function auto_call()
+        {
+            $.ajax({
+                type: "GET",
+                url: "/todo/get/",
+                success: function(data){
+                    document.getElementById("our_data").innerHTML=data
+                    console.log(data);
+
+                }
+
+
+
+            })
+        }
+
+        setInterval(auto_call, 1000);
+
+
+
     
     </script>
 </body>
