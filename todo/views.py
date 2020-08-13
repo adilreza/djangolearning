@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import todo_list
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -17,7 +19,16 @@ def todo(request):
         task = request.POST['task']
         sql = todo_list(task=task)
         sql.save()
-        return render(request, 'todo.html')
+        return JsonResponse({"success":"ok done "})
+
+def todo_get(request):
+    if request.method == "GET":
+        tasks = todo_list.objects.all()
+        html_var= ""
+        for single_task in tasks:
+            list_var = "<p class='btn btn-primary'>"+ single_task.task +"</p>"
+            html_var=html_var+list_var+"<br/>"
+        return HttpResponse(html_var)
 
 def delete_task(request, id):
     if request.method == "GET":
@@ -27,3 +38,4 @@ def delete_task(request, id):
             "all_data": mydata
         }
         return render(request,'todo.html',context=make_dictionary)
+

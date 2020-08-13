@@ -14,10 +14,12 @@ from myapp.views import advanced_type
 
 
 from todo.views import todo, delete_task
+from todo import views
 
 urlpatterns = [
     
     path('todo/', todo),
+    path('todo/get/', views.todo_get),
     path('deletetask/<int:id>', delete_task),
 
 
