@@ -13,11 +13,12 @@ from myapp.views import FirstClassBasedView, manage_ajax, delete_ajax
 from myapp.views import advanced_type
 
 
-from todo.views import todo
+from todo.views import todo, delete_task
 
 urlpatterns = [
     
     path('todo/', todo),
+    path('deletetask/<int:id>', delete_task),
 
 
     path('admin/', admin.site.urls),
