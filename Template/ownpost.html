@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+
+{% block title %} Contact page {% endblock %}
+{% block container %}
+
+<h1> This is own post page  </h1>
+
+<div id="ourpsot">
+
+    {% for single_data in blog %}
+
+    <h4>{{single_data.blog_title}}</h4>
+    <hr>
+    <img style="height:300px; widht:500px;" src="{{single_data.blog_image.url}}" alt="Blog Image"/>
+    <br>
+    <p> {{ single_data.blog_description|safe }}</p>
+
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}
