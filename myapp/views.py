@@ -225,11 +225,30 @@ def blog_details(request, blog_id):
     return render(request, "blogpostshow.html", context=makedictionary)
 
 
+def my_post(request):
+    if request.method == "GET":
+        usr = request.session.get('my_auth_user')
+        if usr:
+            user = User.objects.filter(username=request.session['my_auth_user'])
+            duser_id = 666;
+            for u in user:
+                duser_id = u.id;
+
+            my_own_post = BlogPost.objects.filter(written_by=duser_id)
+            make_dictionary = {
+                "blog": my_own_post
+            }
+            #print(my_own_post)
+
+            return render(request, "ownpost.html", context=make_dictionary)
+
+
+
 def image(request):
     if request.method == "GET":
         return render(request, 'image.html')
 
-@csrf_exempt
+
 def ajax_request(request):
     if request.method == "GET":
         return render(request, 'ajax_page.html')

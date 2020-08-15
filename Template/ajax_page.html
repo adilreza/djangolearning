@@ -31,6 +31,8 @@
           e.preventDefault();
            var name = $("#form_name").val()
            var email = $("#form_email").val()
+           var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+
            data_json = {
                   "name": name,
                   "email":email
@@ -39,7 +41,11 @@
            $.ajax({
               type: "POST",
               url: "/request/ajax",
+              headers:{
+                "X-CSRFToken": csrftoken
+              },
               data: data_json,
+
               dataType:"json",
 
               success: function(data){
