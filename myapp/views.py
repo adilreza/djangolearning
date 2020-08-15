@@ -229,7 +229,7 @@ def image(request):
     if request.method == "GET":
         return render(request, 'image.html')
 
-@csrf_exempt
+
 def ajax_request(request):
     if request.method == "GET":
         return render(request, 'ajax_page.html')
