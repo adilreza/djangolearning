@@ -1,0 +1,20 @@
+.jack{
+    display:block;
+    margin-left: 1.2rem;
+}
+
+.ball{
+    width: 20%;
+    height: 20%;
+    margin-left: 20rem;
+}
+
+.btn-info{
+    padding: 21px 50px;
+    font-weight: 600;
+    font-size: x-large;
+}
+
+#our_data{
+    font-size: 1.5rem;
+}

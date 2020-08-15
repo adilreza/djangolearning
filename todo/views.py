@@ -26,8 +26,10 @@ def todo_get(request):
         tasks = todo_list.objects.all()
         html_var= ""
         for single_task in tasks:
-            list_var = "<p class='btn btn-primary'>"+ single_task.task +"</p>"
-            html_var=html_var+list_var+"<br/>"
+            delete = "<a class='' href = '/deletetask/"+ str(single_task.id) +"' ><i class='fas fa-trash-alt'></i></a>"
+            list_var = "<p class=''>"+ delete + "    " + single_task.task + "</p>"
+
+            html_var=html_var + list_var + "<br/>"
         return HttpResponse(html_var)
 
 def delete_task(request, id):
