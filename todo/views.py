@@ -30,7 +30,12 @@ def todo(request):
 
 def todo_get(request):
     if request.method == "GET":
-        tasks = TodoList.objects.all()
+        usr = request.session.get('my_auth_user')
+        user_ino = User.objects.filter(username=usr)
+        for u in user_ino:
+            user_id = u.id;
+
+        tasks = TodoList.objects.filter(user=user_id)
         html_var= ""
         for single_task in tasks:
             delete = "<a class='' href = '/deletetask/"+ str(single_task.id) +"' ><i class='fas fa-trash-alt'></i></a>"
@@ -60,14 +65,14 @@ def register(request):
         usr.save()
         return JsonResponse({"message":"Successfully create a new user"})
 
-def login(request):
+
+def todo_login(request):
     if request.method == "GET":
         return render(request, 'todo/login.html')
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-
-        user = authenticate(username=username,password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request,user)
@@ -75,3 +80,11 @@ def login(request):
             return JsonResponse({"message":"Yooo!! yes you are our valid user, Welcome"})
         else:
             return JsonResponse({"message":"Noo!! you are not our valid user"})
+
+
+def our_test(request):
+    usr = request.session.get('my_auth_user')
+    user_ino = User.objects.filter(username=usr)
+    print(user_ino)
+    return JsonResponse({"message":"Hello forom out test"})
+

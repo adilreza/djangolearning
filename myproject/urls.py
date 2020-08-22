@@ -19,10 +19,11 @@ from todo import views
 urlpatterns = [
     
     path('todo/', todo),
+    path('our_test/', views.our_test),
     path('todo/get/', views.todo_get),
     path('deletetask/<int:id>', delete_task),
     path('todo/register', views.register),
-    path('todo/login', views.login),
+    path('todo/login/', views.todo_login),
 
 
     path('admin/', admin.site.urls),
