@@ -21,6 +21,8 @@ urlpatterns = [
     path('todo/', todo),
     path('todo/get/', views.todo_get),
     path('deletetask/<int:id>', delete_task),
+    path('todo/register', views.register),
+    path('todo/login', views.login),
 
 
     path('admin/', admin.site.urls),

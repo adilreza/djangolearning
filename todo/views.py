@@ -1,29 +1,36 @@
 from django.shortcuts import render
-from .models import todo_list
+from django.http import  JsonResponse, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.http import HttpResponse
 
-
+from todo.models import TodoList
 # Create your views here.
 
 @csrf_exempt
 def todo(request):
     if request.method == "GET":
-        tasks = todo_list.objects.all()
+        tasks = TodoList.objects.all()
         make_dictinary = {
             "all_data": tasks
         }
-        return render(request, 'todo.html', context=make_dictinary)
+        return render(request, 'todo/todo.html', context=make_dictinary)
     if request.method == "POST":
-        task = request.POST['task']
-        sql = todo_list(task=task)
-        sql.save()
-        return JsonResponse({"success":"ok done "})
+        if request.method == "POST":
+            usr = request.session.get('my_auth_user')
+        
+            if usr:
+                task = request.POST['task']
+                user = User.objects.get(username=request.session['my_auth_user'])
+
+                sql = TodoList(task=task, user=user)
+                sql.save()
+                return JsonResponse({"success":"ok done "})
 
 def todo_get(request):
     if request.method == "GET":
-        tasks = todo_list.objects.all()
+        tasks = TodoList.objects.all()
         html_var= ""
         for single_task in tasks:
             delete = "<a class='' href = '/deletetask/"+ str(single_task.id) +"' ><i class='fas fa-trash-alt'></i></a>"
@@ -34,10 +41,37 @@ def todo_get(request):
 
 def delete_task(request, id):
     if request.method == "GET":
-        todo_list.objects.filter(id=id).delete()
-        mydata = todo_list.objects.all()
+        TodoList.objects.filter(id=id).delete()
+        mydata = TodoList.objects.all()
         make_dictionary = {
             "all_data": mydata
         }
-        return render(request,'todo.html',context=make_dictionary)
+        return render(request,'todo/todo.html',context=make_dictionary)
 
+def register(request):
+    if request.method=="GET":
+        return render(request, 'todo/register.html')
+    if request.method=="POST":
+
+        email = request.POST['email']
+        password = request.POST['password']
+        username = request.POST['username']
+        usr = User.objects.create_user(username=username, email=email, password=password)
+        usr.save()
+        return JsonResponse({"message":"Successfully create a new user"})
+
+def login(request):
+    if request.method == "GET":
+        return render(request, 'todo/login.html')
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            request.session['my_auth_user']=username
+            return JsonResponse({"message":"Yooo!! yes you are our valid user, Welcome"})
+        else:
+            return JsonResponse({"message":"Noo!! you are not our valid user"})
