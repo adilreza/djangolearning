@@ -3,6 +3,14 @@
 {% block title %} Login {% endblock %}
 {% block container %}
 <div class="container">
+    {% if not success %}
+      <div class="alert alert-danger" role="alert">
+        Login Failed
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
     <h2>login </h2>
     <form action="/todo/login/" method="post">
   

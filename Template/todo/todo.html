@@ -8,8 +8,14 @@
 <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 
 <div class="container">
-    <br>
-    <br>
+    {% if success %}
+         <div class="alert alert-success" role="alert">
+            Successfully logged in
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
     <h1 style="color: rgb(0, 0, 0);">To Do list</h1>
     <h5>Working hard or hardly working?</h5>
     <hr>
