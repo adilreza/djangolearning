@@ -52,6 +52,7 @@ urlpatterns = [
     path('request/ajax', ajax_request),
 
     path('custom/', include('myapp.our_custom_urls')),
+    path("query/", include('query_app.qurls')),
 
     path('charlotteajax/', charlotte_ajax),
     path('class_based/', FirstClassBasedView.as_view()),
