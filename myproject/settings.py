@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'myapp',
     'todo',
     'query_app',
+    'admin_dashboard',
 ]
 
 MIDDLEWARE = [
