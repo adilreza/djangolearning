@@ -62,5 +62,7 @@ urlpatterns = [
     path('advanced/', advanced_type),
     path('mypost/', my_post),
 
+    path('admindash/', include('admin_dashboard.admin_urls')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
