@@ -12,9 +12,11 @@ from myapp.views import response_test, blogpost, blog_details, image,ajax_reques
 from myapp.views import FirstClassBasedView, manage_ajax, delete_ajax
 from myapp.views import advanced_type
 from myapp.views import my_post
+from myapp.views import mail_sending
 
 from todo.views import todo, delete_task
 from todo import views
+
 
 urlpatterns = [
     
@@ -63,6 +65,7 @@ urlpatterns = [
     path('mypost/', my_post),
 
     path('admindash/', include('admin_dashboard.admin_urls')),
+    path('mail_sending/', mail_sending),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

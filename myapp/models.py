@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import JSONField
+from django.db.models.signals import pre_save, post_save
 
 
 # Create your models here.
@@ -71,3 +72,16 @@ class AdvancedDataType(models.Model):
     def __str__(self):
         return self.name
 
+class DjangoSignal(models.Model):
+    title = models.CharField(max_length=250)
+    details = models.CharField(blank=True, null=True, max_length=250)
+
+    def __str__(self):
+        return self.title
+
+
+def save_post(sender, instance, **kwargs):
+    print("this function is called ")
+
+
+post_save.connect(save_post, sender=DjangoSignal)
