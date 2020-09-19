@@ -22,6 +22,7 @@ def user_login(request):
         else:
             return render(request, 'admin_dash/login.html', {'success': False})
 
+
 def register(request):
     if request.method=="GET":
         return render(request, 'admin_dash/register.html')
@@ -29,8 +30,11 @@ def register(request):
         if request.POST['password'] != request.POST['password2']:
             return render(request, 'admin_dash/register.html', {'not_match': True})
         email = request.POST['email']
+        name = request.POST['name']
         password = request.POST['password']
         username = request.POST['username']
-        usr = User.objects.create_user(name=name, username=username, email=email, password=password)
+        usr = User.objects.create_user(username=username, email=email, password=password)
+        usr.first_name = name
         usr.save()
+
         return JsonResponse({"message":"Successfully create a new user"})

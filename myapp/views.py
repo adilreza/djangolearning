@@ -3,6 +3,7 @@ from django.http import  JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 # import model
 from .models import  Post, Mydata, BlogPost, MyAjaxTest, CharlotteAjaxTable
@@ -10,6 +11,12 @@ from .models import AdvancedDataType
 from django.views import View
 # Create your views here.
 import json
+
+# credential for mail sending
+from myproject.settings import EMAIL_HOST_USER
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
 
 def index_file(request):
     return render(request, 'index.html')
@@ -331,3 +338,40 @@ def advanced_type(request):
         sql = AdvancedDataType(name=clean_data["name"], json_data = clean_data["json_type"])
         sql.save()
         return JsonResponse({"message":"I am from post"})
+
+
+
+def check_email_valid_or_not(rcv_email):
+    try:
+        validate_email(rcv_email)
+        valid_email = True
+    except ValidationError:
+        valid_email = False
+
+    return valid_email
+
+@csrf_exempt
+def mail_sending(request):
+    if request.method == "GET":
+        return render(request, 'mail_sender.html')
+    if request.method == "POST":
+        subject = request.POST['subject']
+        message = request.POST['message_body']
+        to_address = request.POST['to_address']
+
+        valid_check=check_email_valid_or_not(to_address)
+
+        if valid_check == True:
+            result = send_mail(
+                        subject,
+                        message,
+                        EMAIL_HOST_USER,
+                        [to_address],
+                        fail_silently=False,
+                    )
+            if result == 1:
+                return JsonResponse({"Message": "Mail sent successfully"})
+            else:
+                return JsonResponse({"Message": "Something went wrong check again"})
+        else:
+            return JsonResponse({"Message": "Your email is not valid"})
